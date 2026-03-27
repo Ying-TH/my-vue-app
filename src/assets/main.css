@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+  themes: flase;
+}
+
+/* Custom daisyUI newsrom theme */
+@plugin 'daisyui/theme' {
+  name: 'newroom';
+  default: true;
+
+  --color-primary: #1a1a2e;
+  --color-primary-content: #f5f0e8;
+
+  --color-secondary: #c9a84c;
+  --color-secondary-content: #1a1a2e;
+
+  --color-accent: #e63946;
+  --color-accent-content: #ffffff;
+
+  --color-neutral: #2d2d2d;
+  --color-neutral-content: #f5f0e8;
+
+  --color-base-100: #f5f0e8;
+  --color-base-200: #ede8de;
+  --color-base-300: #ddd8cc;
+  --color-base-content: #1a1a2e;
+
+  --color-info: #3b82f6;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+/* Custom font tokens */
+@theme {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base layer */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* Reusable component classes */
+@layer components {
+  /* Newspaper double-rule borders */
+  .ruled-top {
+    border-top: 3px double oklch(var(--p));
+  }
+  .ruled-bottom {
+    border-bottom: 3px double oklch(var(--p));
+  }
+
+  /* Dateline / eyebrow mono label */
+  .dateline {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(var(--s));
+  }
+
+  /* Editorial drop cap */
+  .drop-cap::first-letter {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: oklch(var(--a));
+  }
+}
