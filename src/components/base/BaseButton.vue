@@ -5,13 +5,10 @@ const props = defineProps({
   variant: {
     type: String,
     default: 'primary',
-    validator: (v) => ['primary', 'secondary', 'accent', 'ghost', 'outline', 'neutral'].includes(v),
+    validator: (v) =>
+      ['primary', 'secondary', 'accent', 'ghost', 'outline', 'neutral', 'error'].includes(v),
   },
-  size: {
-    type: String,
-    default: 'md',
-    validator: (v) => ['xs', 'sm', 'md', 'lg'].includes(v),
-  },
+  size: { type: String, default: 'md', validator: (v) => ['xs', 'sm', 'md', 'lg'].includes(v) },
   loading: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   type: { type: String, default: 'button' },
@@ -28,6 +25,7 @@ const variantClass = computed(
       ghost: 'btn-ghost',
       outline: 'btn-outline',
       neutral: 'btn-neutral',
+      error: 'btn-error',
     })[props.variant],
 )
 
@@ -47,7 +45,7 @@ const sizeClass = computed(
     :type="type"
     :disabled="disabled || loading"
     :class="[
-      'btn font-body tracking-wide transition-all duration-200',
+      'btn transition-all duration-200',
       variantClass,
       sizeClass,
       { 'btn-disabled': disabled },

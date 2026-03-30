@@ -43,9 +43,8 @@ const sizeClass = computed(
 <template>
   <div class="form-control w-full">
     <label v-if="label" class="label pb-1">
-      <span class="label-text font-body font-semiblod">
-        {{ label }}
-        <span v-if="required" class="text-accent ml-0.5">*</span>
+      <span class="label-text font-medium text-sm">
+        {{ label }}<span v-if="required" class="text-error ml-0.5">*</span>
       </span>
     </label>
 
@@ -55,7 +54,7 @@ const sizeClass = computed(
       :placeholder="placeholder"
       :required="required"
       :disabled="disabled"
-      :class="['input w-full font-body', variantClass, sizeClass, { 'input-error': error }]"
+      :class="['input w-full', variantClass, sizeClass, { 'input-error': error }]"
       @input="$emit('update:modelValue', $event.target.value)"
       @blur="$emit('blur', $event)"
       @focus="$emit('focus', $event)"
@@ -63,7 +62,7 @@ const sizeClass = computed(
 
     <label v-if="error || hint" class="label pt-1">
       <span v-if="error" class="label-text-alt text-error">{{ error }}</span>
-      <span v-else-if="hint" class="label-text-alt text-base-content/60">{{ hint }}</span>
+      <span v-else-if="hint" class="label-text-alt opacity-50">{{ hint }}</span>
     </label>
   </div>
 </template>

@@ -1,44 +1,53 @@
 @import 'tailwindcss';
 @plugin 'daisyui' {
-  themes: flase;
+  themes: false;
 }
 
-/* Custom daisyUI newsrom theme */
+/* Corporate Portal Theme */
 @plugin 'daisyui/theme' {
-  name: 'newroom';
+  name: 'portal';
   default: true;
 
-  --color-primary: #1a1a2e;
-  --color-primary-content: #f5f0e8;
+  /* Deep navy primary - authority without coldness */
+  --color-primary: #1e3a5f;
+  --color-primary-content: #e8f0fe;
 
-  --color-secondary: #c9a84c;
-  --color-secondary-content: #1a1a2e;
+  /* Warm teal accent - action, links, highlights */
+  --color-secondary: #0d7377;
+  --color-secondary-content: #ffffff;
 
-  --color-accent: #e63946;
-  --color-accent-content: #ffffff;
+  /* Amber accent - badges, alerts, CTAs */
+  --color-accent: #f5a623;
+  --color-accent-content: #1a1a1a;
 
-  --color-neutral: #2d2d2d;
-  --color-neutral-content: #f5f0e8;
+  --color-neutral: #2d2d35;
+  --color-neutral-content: #e2e8f0;
 
-  --color-base-100: #f5f0e8;
-  --color-base-200: #ede8de;
-  --color-base-300: #ddd8cc;
-  --color-base-content: #1a1a2e;
+  /* Off-white base - easier on the eyes than pure white */
+  --color-base-100: #f7f8fc;
+  --color-base-200: #eef0f6;
+  --color-base-300: #dde1ed;
+  --color-base-content: #1e2433;
 
   --color-info: #3b82f6;
-  --color-success: #22c55e;
+  --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+
+  /* Layout tokens */
+  --topbar-height: 56px;
+  --sidebar-width: 220px;
+  --announce-height: 36px;
 }
 
-/* Custom font tokens */
+/* Font tokens */
 @theme {
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-display: 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* Base layer */
+/* Base */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -58,33 +67,94 @@
   }
 }
 
-/* Reusable component classes */
+/* Portal layout utilities */
 @layer components {
-  /* Newspaper double-rule borders */
-  .ruled-top {
-    border-top: 3px double oklch(var(--p));
-  }
-  .ruled-bottom {
-    border-bottom: 3px double oklch(var(--p));
+  .portal-topbar {
+    height: var(--topbar-height);
+    position: sticky;
+    top: var(--announce-height);
+    z-index: 100;
+    background: oklch(var(--b1));
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid oklch(var(--b3));
   }
 
-  /* Dateline / eyebrow mono label */
-  .dateline {
-    font-family: var(--font-mono);
+  .portal-sidebar {
+    width: var(--sidebar-width);
+    position: fixed;
+    top: calc(var(--topbar-height) + var(--announce-height));
+    left: 0;
+    bottom: 0;
+    z-index: 90;
+    background: oklch(var(--b1));
+    border-right: 1px solid oklch(var(--b3));
+    overflow-y: auto;
+  }
+
+  .portal-main {
+    margin-left: var(--sidebar-width);
+    min-height: calc(100vh - var(--topbar-height));
+    background: oklch(var(--b2));
+    position: relative;
+    z-index: 10;
+  }
+
+  /* No sidebar pages (login, full-width) */
+  .portal-main-full {
+    margin-top: 0;
+    margin-left: 0;
+    min-height: 100vh;
+  }
+
+  /* Sidebar nav items */
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s;
+    color: oklch(var(--bc) / 0.7);
+  }
+
+  .sidebar-item:hover {
+    background: oklch(var(--p) / 0.8);
+    color: oklch(var(--bc));
+  }
+
+  .sidebar-item.action {
+    background: oklch(var(--p) / 0.12);
+  }
+
+  /* App grid icon button */
+  .app-icon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
     font-size: 0.7rem;
-    letter-spacing: 0.1em;
+    font-weight: 600;
     text-transform: uppercase;
-    color: oklch(var(--s));
+    letter-spacing: 0.05em;
   }
 
-  /* Editorial drop cap */
-  .drop-cap::first-letter {
-    font-family: var(--font-display);
-    font-size: 4rem;
-    font-weight: 900;
-    float: left;
-    line-height: 0.8;
-    margin: 0.05em 0.1em 0 0;
-    color: oklch(var(--a));
+  .app-icon-btn:hover {
+    background: oklch(var(--b2));
+  }
+
+  .app-icon-btn:active {
+    background: oklch(var(--p) / 0.12);
+    color: oklch(var(--p));
   }
 }
